@@ -34,9 +34,6 @@ quit programm (q)?
     with open(file_path, 'r') as p:
         lines = p.readlines()
 
-    with open(file_path, 'r') as p:
-        all = p.read()
-
     if action == 'c':
         pos_new = int(len(lines)+1)
 
@@ -61,14 +58,21 @@ quit programm (q)?
             line_to_read = lines[line_number - 1]
             parts = line_to_read.split("//-/")
 
-            password_id = parts[0]
             user = parts[1]
             hashed_password = parts[2]
             decrypted_password = fer.decrypt(hashed_password.encode()).decode()
             print(f'User: {user} - Password: {decrypted_password}')
 
         elif line_number == 0:
-            print(all)
+            for line_to_read in lines:
+                parts = line_to_read.strip().split("//-/")
+
+                user = parts[1]
+                hashed_password = parts[2]
+                decrypted_password = fer.decrypt(
+                    hashed_password.encode()).decode()
+                print(f'User: {user} - Password: {decrypted_password}')
+
         else:
             print(f'No Password # {line_number} found.')
 
