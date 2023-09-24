@@ -18,10 +18,7 @@ def load_key():
     return key
 
 
-master_pasword = "master"
-master_pasword_input = input("Enter master Password: ")
 key = load_key()
-'''+ master_pasword.encode()'''
 fer = Fernet(key)
 
 
@@ -42,11 +39,14 @@ quit programm (q)?
 
     if action == 'c':
         pos_new = int(len(lines)+1)
-        new_user = input(f'Enter new user name ({pos_new})> ')
-        new_password = input(f'Enter new password # {pos_new}> ')
+
+        print(f'Enter new data for Password # {pos_new}: ')
+        new_user = input('User: ')
+        new_password = input('Password: ')
+
         with open(file_path, 'a') as p:
             p.write(
-                f'password_{pos_new}-{new_user}-{fer.encrypt(new_password.encode())}'
+                f'password_{pos_new}//-/{new_user}//-/{fer.encrypt(new_password.encode()).decode()}'
                 + '\n')
             print(f'password # {pos_new} created...')
 
@@ -59,11 +59,14 @@ quit programm (q)?
 
         if 1 <= line_number <= len(lines):
             line_to_read = lines[line_number - 1]
-            passw_id, user, passw = line_to_read.split("/-/")
+            parts = line_to_read.split("//-/")
 
-            print(
-                f'User: {user} Password: {fer.decrypt(passw.encode()).decode()}'
-            )
+            password_id = parts[0]
+            user = parts[1]
+            hashed_password = parts[2]
+            decrypted_password = fer.decrypt(hashed_password.encode()).decode()
+            print(f'User: {user} - Password: {decrypted_password}')
+
         elif line_number == 0:
             print(all)
         else:
