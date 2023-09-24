@@ -1,4 +1,7 @@
 from cryptography.fernet import Fernet
+import os
+file_path = os.path.join(
+    './password_encyption/', 'password_encyption.txt')
 
 
 # key is generated - not needed anymore.
@@ -9,7 +12,7 @@ from cryptography.fernet import Fernet
 
 
 def load_key():
-    file = open("key.key", "rb")
+    file = open("./password_encyption/key.key", "rb")
     key = file.read()
     file.close()
     return key
@@ -31,21 +34,20 @@ View Passwords (v)?
 quit programm (q)?
 > ''').lower()
 
-    with open('password_encyption.txt', 'r') as p:
+    with open(file_path, 'r') as p:
         lines = p.readlines()
 
-    with open('password_encyption.txt', 'r') as p:
+    with open(file_path, 'r') as p:
         all = p.read()
 
     if action == 'c':
         pos_new = int(len(lines)+1)
         new_user = input(f'Enter new user name ({pos_new})> ')
         new_password = input(f'Enter new password # {pos_new}> ')
-        with open('password_encyption.txt', 'a') as p:
+        with open(file_path, 'a') as p:
             p.write(
-                '\n' +
                 f'password_{pos_new}-{new_user}-{fer.encrypt(new_password.encode())}'
-            )
+                + '\n')
             print(f'password # {pos_new} created...')
 
     elif action == 'v':

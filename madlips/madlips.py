@@ -1,4 +1,9 @@
-with open("story.txt", "r") as f:
+import os
+file_path = os.path.join(
+    './madlips/', 'story.txt')
+
+
+with open(file_path, "r") as f:
     story = f.read()
 
 story_copy = story

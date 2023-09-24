@@ -1,3 +1,7 @@
+import os
+file_path = os.path.join(
+    './password/', 'passwords.txt')
+
 while True:
     action = input('''
 Actions:
@@ -7,17 +11,17 @@ View Passwords (v)?
 quit programm (q)?
 > ''').lower()
 
-    with open('passwords.txt', 'r') as p:
+    with open(file_path, 'r') as p:
         lines = p.readlines()
 
-    with open('passwords.txt', 'r') as p:
+    with open(file_path, 'r') as p:
         all = p.read()
 
     if action == 'c':
         pos_new = int(len(lines)+1)
         new_user = input(f'Enter new user name ({pos_new})> ')
         new_password = input(f'Enter new password # {pos_new}> ')
-        with open('passwords.txt', 'a') as p:
+        with open(file_path, 'a') as p:
             p.write('\n' + f'password_{pos_new}-{new_user}-{new_password}')
             print(f'password # {pos_new} created...')
 
