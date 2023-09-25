@@ -69,3 +69,7 @@ while True:
     elif menu == "q":
         print(f'\nCashout: {deposit}')
         break
+
+
+# missing:
+# check if inputs are correct
