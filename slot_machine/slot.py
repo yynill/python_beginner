@@ -11,7 +11,7 @@ while True:
         print('Invalid input. Please enter a valid number.\n')
 
 
-def set_slot(lines, bet_size):
+def set_slot(lines, bet_size, balance):
     char = ["A", "B", "C", "D", "E"]
     slot_Machine = []
     for _ in range(3):
@@ -29,7 +29,25 @@ def set_slot(lines, bet_size):
 {slot_Machine[2][0]} | {slot_Machine[2][1]} | {slot_Machine[2][2]}          <-- Line 3
 ''')
 
-# calc win loss
+    # calc win loss
+
+    # check if line won:
+    count_winning_rows = []
+    for i in range(3):
+        if slot_Machine[i][0] == slot_Machine[i][1] and slot_Machine[i][1] == slot_Machine[i][2]:
+            count_winning_rows.append("X")
+
+    # win = num of lines * (bet * 2)
+    win = len(count_winning_rows) * (bet_size * 2)
+    # loss = bet - win
+    loss = bet_size - win
+    # balance = balance - loss
+    new_balance = balance - loss
+    balance = new_balance
+    print(f'''
+You won: ${win}
+On lines: 
+Current Balance: ${new_balance}''')
 
 
 def set_bet():
@@ -42,7 +60,7 @@ def start_slot():
     lines, bet_size = set_bet()
     total_bet = int(lines) * int(bet_size)
     print(f'Your Bet: {lines} Lines each ${bet_size} ==> Total: ${total_bet}')
-    set_slot(lines, bet_size)
+    set_slot(lines, bet_size, balance)
 
 
 while True:
