@@ -57,10 +57,15 @@ while True:
         bet_size = int(input('What would you want to bet on each line? $'))
 
         total_bet = lines * bet_size
-        print(
-            f'Your Bet: {lines} Lines each ${bet_size} ==> Total: ${total_bet}')
-        deposit += set_slot(lines, bet_size, deposit)
-        print(f'Current Balance: ${deposit}')
+        if total_bet > deposit:
+            print('You dont have enough money to play.')
+        elif total_bet <= deposit:
+            print(
+                f'Your Bet: {lines} Lines each ${bet_size} ==> Total: ${total_bet}')
+            deposit += set_slot(lines, bet_size, deposit)
+            print(f'Current Balance: ${deposit}')
+            if deposit == 0:
+                print('You are out of money 🥲')
     elif menu == "q":
         print(f'\nCashout: {deposit}')
         break
